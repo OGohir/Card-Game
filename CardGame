@@ -1,0 +1,104 @@
+import java.util.Scanner;
+
+/**
+ * This code is made to store the values of a deck of Cards which one user can only have 10 
+ * cards at a time. The user can input from various of commands and can even remove the most 
+ * recent card in their deck till they are satisfied. 
+ * 
+ * @Omaima Gohir
+ */
+
+//class is CardGame
+public class CardGame
+ {
+    public static void main(String[] args) 
+    {
+        Scanner input = new Scanner(System.in);
+        
+        //integer array that holds an empty array with 10 values
+        int[] deck = new int[10];
+        
+        /*  
+         * integer variable for the variable topCardIndex equals -1
+         * this equals -1 because in the array, i dont want the first card 
+         * to equal 0 all the time, that wouldnt make sense. So if we keep
+         * the topCardIndex as -1, that means the first card would be at the
+         * 0th index instead of at index 1. which makes sense because then we 
+         * wouldnt be adding the value of 0 card at index 0.
+         * 
+         */
+        
+        int topCardIndex = -1;
+        
+        //printing out the commands, and what each command does, using the function newline (\n)
+        System.out.println("\n p - [card number] Put a card on the stack" +
+                "\n t - Take the card from the stack" +
+                "\n r - Print the stack." +
+                "\n q - Quit");
+
+        //when its true that the index number is smaller than the length of the Deck Array(10)
+        while (topCardIndex <= deck.length) 
+        {
+            //let user input command (referring to p, t, r, q)
+            String command = input.nextLine();
+            //print to show what command is picked, and to make it look clean
+            System.out.println("> " + command);
+
+            //if the command is p
+            if (command.equals("p"))
+            {
+                System.out.print("Card: ");
+                int card = input.nextInt();
+                //index is increased by 1, because the previous index was the pervious card. the new index will be the new card
+                topCardIndex++;
+                /*
+                 * calling the array deck using the index of the value of topCardIndex, which is the
+                 * MOST RECENT card, as in the TOP card of the deck, to EQUAL the new card value, which
+                 * can be any number to represent a card
+                 */
+                deck[topCardIndex] = card;
+                
+            //if the command is t
+            } else if (command.equals("t")) 
+            {  
+                //if the index of the array given, which is the newest card is greater than 0 (indicating there is a card in the deck)
+                if (topCardIndex >= 0) 
+                {
+                    
+                    deck[topCardIndex] = 0;
+                    //that index is subtracted by 1, removing it from the array. the most RECENT index is removed.
+                    topCardIndex--;
+                } else {
+                    //print that there is no cards because if topCardIndex is smaller than 0, that means its the original value of -1
+                    System.out.println("No cards in the deck.");
+                }
+                //if the command equals r
+            } else if (command.equals("r")) 
+            {
+                //if the index of the array given, which is the newest card is greater than 0 (indicating there is a card in the deck)
+                if (topCardIndex >= 0)
+                {
+                    System.out.println("Deck: ");
+                    /*
+                     * loop to print out EACH index. NOTE:
+                     *  notice i didnt use topCardIndex as the index, because the topCardIndex,
+                     *  cannot represent the index of 0,1,2,3,4,5.... as it alreadsy has a changing value in the code.
+                     *  this is why i used int i = 0, because since it increases by 1 each time, every single index will be printed
+                     *  until the i value is smaller than or equal to the topCardIndex (the last card ion the deck)
+                     */
+                    for (int i = 0; i <= topCardIndex; i++) {
+                        //print arrays index, and add a space so it looks clean
+                        System.out.print(deck[i] + " ");
+                    }
+                } else {
+                    //print that there is no cards because if topCardIndex is smaller than 0, that means its the original value of -1
+                    System.out.println("No cards in the deck.");
+                }   
+                //if command equals q
+            } else if (command.equals("q")) {
+                //quit the whole program even if there is no input answers.
+                break;
+            }
+        }
+    }
+}
